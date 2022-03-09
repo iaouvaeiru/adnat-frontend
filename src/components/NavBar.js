@@ -26,7 +26,7 @@ export default function NavBar(props) {
             {props.state.token.length > 0 ? Logout() : Login() }
             {/* <NavLink to='/' style={{ marginRight: '60px', marginLeft: '30px', fontSize: '15pt', color:'white' }} activeClassName="active" activeStyle={{fontWeight: "bold", color: "white"}}>Home</NavLink> */}
             {/* <NavLink to='/listings' style={{fontSize: '15pt', color:'white' }} activeClassName="active" activeStyle={{fontWeight: "bold", color: "white"}}>Listings</NavLink> */}
-            {/* <NavLink to='/profile' style={{ float: 'right', marginRight: '50px', fontSize: '15pt', color:'white' }} activeClassName="active" activeStyle={{fontWeight: "bold", color: "white"}}>Profile</NavLink> */}
+            <NavLink to='/profile' style={{ float: 'right', marginRight: '50px', fontSize: '15pt', color:'black' }} activeClassName="active" activeStyle={{fontWeight: "bold", color: "black"}}>Edit Profile</NavLink>
             {/* <NavLink to='/orders' style={{ marginRight: '50px', marginLeft: '30px', fontSize: '15pt', color:'black' }} activeClassName="active" activeStyle={{fontWeight: "bold", color: "black"}}>Orders</NavLink> */}
         </div>
     )

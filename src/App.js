@@ -6,6 +6,7 @@ import Signup from './components/Signup'
 import OrganisationList from './components/OrganisationList'
 import NavBar from './components/NavBar'
 import NewOrganisation from './components/NewOrganisation'
+import EditProfile from './components/EditProfile';
 
 function App(props) {
 
@@ -15,7 +16,8 @@ function App(props) {
       name: "",
       organisation: "",
       id: 0,
-      token: ""
+      token: "",
+      email_address: ''
   })
 
   const [shifts, setShifts] = useState([])
@@ -55,7 +57,8 @@ function App(props) {
         name: resp.user.name,
         organisation: resp.user.organisation,
         id: resp.user.id,
-        token: resp.token
+        token: resp.token,
+        email_address: resp.user.email_address
       })
       localStorage.token = resp.token;
       if(resp.user.organisation == null){
@@ -94,6 +97,13 @@ function App(props) {
     setOrganisations(copyOfOrganisations)
   }
 
+  const updateUserInfo = (updatedUser) => {
+    setState({...state, 
+      name: updatedUser.name,
+      email_address: updatedUser.email_address
+    })
+  }
+
   return (
     <div>
       <NavBar 
@@ -101,7 +111,20 @@ function App(props) {
         setState = {setState}
       />
       <Switch>
-        <Route path={'/login'} element={<Login />}
+        <Route path={'/profile'}
+          render={routerProps => {
+            return <div>
+              <EditProfile
+                {...routerProps}
+                updateUserInfo={updateUserInfo}
+                state={state}
+              >
+              </EditProfile>
+            </div>
+          }}
+        >
+        </Route>
+        <Route path={'/login'}
           render={routerProps => {
             return <div>
               <Login
