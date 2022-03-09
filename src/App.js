@@ -1,12 +1,13 @@
 import './App.css';
 import React, { useState, useEffect } from 'react'
-import {Switch, Route, withRouter} from 'react-router-dom'
+import {Switch, Route, withRouter, Link} from 'react-router-dom'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import OrganisationList from './components/OrganisationList'
 import NavBar from './components/NavBar'
 import NewOrganisation from './components/NewOrganisation'
-import EditProfile from './components/EditProfile';
+import EditProfile from './components/EditProfile'
+import NewShift from './components/NewShift'
 
 function App(props) {
 
@@ -79,11 +80,18 @@ function App(props) {
 
   const joinOrganisation = (organisation) => {
     setState({...state, organisation: organisation})
+    let copyOfShifts = shifts.filter(shiftObj => {
+      return shiftObj.user.id !== state.id
+    })
+    setShifts(copyOfShifts)
   }
 
   const leaveOrganisation = (organisation) => {
     setState({...state, organisation:''})
-    //setShifts()
+    let copyOfShifts = shifts.filter(shiftObj => {
+      return shiftObj.user.id !== state.id
+    })
+    setShifts(copyOfShifts)
   }
 
   const updateOrganisation = (updatedOrganisation) => {
@@ -104,6 +112,11 @@ function App(props) {
     })
   }
 
+  const addShift = (newShift) => {
+    let copyOfShifts = [...shifts, newShift]
+    setShifts(copyOfShifts)
+  }
+
   const createTable = () => {
     return (
       <div className="table">
@@ -115,6 +128,7 @@ function App(props) {
             <th>Shift End</th>
             <th>Break (minutes)</th>
             <th>Hours Worked</th>
+            <th>Shift Cost</th>
           </tr>
           {shifts.map(shift => {
             if(shift.user.organisation.id === state.organisation.id){
@@ -132,6 +146,7 @@ function App(props) {
                   <td>{finishTime}</td>
                   <td>{shift.break_length}</td>
                   <td>{(minutes - shift.break_length)/60}</td>
+                  <td>${(minutes - shift.break_length)/60 * shift.user.organisation.hourly_rate}</td>
                 </tr>
               )
             }
@@ -181,10 +196,24 @@ function App(props) {
             </div>
           }}>
         </Route>
-        <Route path={'/organisations/:id'}
+        <Route path={'/organisations/:id'}>
+        <Link to={'/organisations'}>
+            <button>Back</button>
+          </Link>
+          {createTable()}
+          <Link to={'/newshift'}>
+            <button>Add new shift</button>
+          </Link>
+        </Route>
+        <Route path={'/newshift'}
           render={routerProps => {
             return <div>
-              {createTable()}
+              <NewShift
+                {...routerProps}
+                state={state}
+                addShift={addShift}
+              >
+              </NewShift>
             </div>
           }}
         >

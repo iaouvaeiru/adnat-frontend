@@ -36,7 +36,7 @@ export default function OrganisationList(props) {
         <span><h2>OrganisationList</h2>
             <br></br>
             <span>
-                {props.state.organisation ? `you are part of ${props.state.organisation.name}` : 'please join an organisation'}
+                {props.state.organisation ? `You are part of ${props.state.organisation.name}` : 'please join an organisation'}
                 {props.state.organisation ? <button onClick={handleClick}>leave organisation</button> : null}
                 
                 {props.state.organisation ? 
