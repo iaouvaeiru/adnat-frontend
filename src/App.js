@@ -15,7 +15,7 @@ function App(props) {
 
   const [state, setState] = useState({
       name: "",
-      organisation: "",
+      organisation: {},
       id: 0,
       token: "",
       email_address: ''
@@ -200,7 +200,7 @@ function App(props) {
         <Link to={'/organisations'}>
             <button>Back</button>
           </Link>
-          {createTable()}
+          {state.organisation ? createTable() : null}
           <Link to={'/newshift'}>
             <button>Add new shift</button>
           </Link>
