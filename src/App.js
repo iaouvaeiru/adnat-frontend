@@ -7,6 +7,7 @@ import OrganisationList from './components/OrganisationList'
 import NavBar from './components/NavBar'
 import NewOrganisation from './components/NewOrganisation'
 import EditProfile from './components/EditProfile';
+import ShowShifts from './components/ShowShifts'
 
 function App(props) {
 
@@ -104,6 +105,42 @@ function App(props) {
     })
   }
 
+  const createTable = () => {
+    return (
+      <div className="table">
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Shift Start</th>
+            <th>Shift End</th>
+            <th>Break (minutes)</th>
+            <th>Hours Worked</th>
+          </tr>
+          {shifts.map(shift => {
+            if(shift.user.organisation.id === state.organisation.id){
+              let startDateTime = new Date(shift.start)
+              let endDateTime = new Date(shift.finish)
+              let date = startDateTime.toLocaleDateString()
+              let startTime = startDateTime.toLocaleTimeString()
+              let finishTime = endDateTime.toLocaleTimeString()
+              return (
+                <tr key={shift.id}>
+                  <td>{shift.user.name}</td>
+                  <td>{date}</td>
+                  <td>{startTime}</td>
+                  <td>{finishTime}</td>
+                  <td>{shift.break_length}</td>
+                  <td>hours worked</td>
+                </tr>
+              )
+            }
+          })}
+        </table>
+      </div>
+    )
+  }
+
   return (
     <div>
       <NavBar 
@@ -143,6 +180,19 @@ function App(props) {
               </Signup>
             </div>
           }}>
+        </Route>
+        <Route path={'/organisations/:id'}
+          render={routerProps => {
+            return <div>
+              {createTable()}
+              <ShowShifts
+              {...routerProps}
+              shifts={shifts}
+              >
+              </ShowShifts>
+            </div>
+          }}
+        >
         </Route>
         <Route path={'/organisations'}
           render={routerProps => {
