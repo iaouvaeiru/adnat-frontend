@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import {Card, Form, Button} from 'semantic-ui-react'
-import { Switch, Link } from 'react-router-dom'
 
 export default function EditProfile(props) {
     console.log(props)

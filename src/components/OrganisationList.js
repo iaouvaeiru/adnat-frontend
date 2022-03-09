@@ -13,7 +13,6 @@ export default function OrganisationList(props) {
             joinOrganisation={props.joinOrganisation}
             updateOrganisation={props.updateOrganisation}
             id={orgObj.id}
-            // organisation={orgObj}
         />
     })
 
