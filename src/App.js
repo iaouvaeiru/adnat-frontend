@@ -7,7 +7,6 @@ import OrganisationList from './components/OrganisationList'
 import NavBar from './components/NavBar'
 import NewOrganisation from './components/NewOrganisation'
 import EditProfile from './components/EditProfile';
-import ShowShifts from './components/ShowShifts'
 
 function App(props) {
 
@@ -124,6 +123,7 @@ function App(props) {
               let date = startDateTime.toLocaleDateString()
               let startTime = startDateTime.toLocaleTimeString()
               let finishTime = endDateTime.toLocaleTimeString()
+              let minutes = ((endDateTime) - (startDateTime)) / 60000
               return (
                 <tr key={shift.id}>
                   <td>{shift.user.name}</td>
@@ -131,7 +131,7 @@ function App(props) {
                   <td>{startTime}</td>
                   <td>{finishTime}</td>
                   <td>{shift.break_length}</td>
-                  <td>hours worked</td>
+                  <td>{(minutes - shift.break_length)/60}</td>
                 </tr>
               )
             }
@@ -185,11 +185,6 @@ function App(props) {
           render={routerProps => {
             return <div>
               {createTable()}
-              <ShowShifts
-              {...routerProps}
-              shifts={shifts}
-              >
-              </ShowShifts>
             </div>
           }}
         >

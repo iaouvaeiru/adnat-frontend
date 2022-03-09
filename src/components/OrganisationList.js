@@ -38,9 +38,12 @@ export default function OrganisationList(props) {
             <span>
                 {props.state.organisation ? `you are part of ${props.state.organisation.name}` : 'please join an organisation'}
                 {props.state.organisation ? <button onClick={handleClick}>leave organisation</button> : null}
-                <Link to={`/organisations/${props.state.organisation.id}`}>
-                    {props.state.organisation ? <button>View Shifts</button> : null}
-                </Link>
+                
+                {props.state.organisation ? 
+                    <Link to={`/organisations/${props.state.organisation.id}`}>
+                        <button>View Shifts</button> 
+                    </Link> : null}
+                
             </span>
             <h3>Organisations</h3>
             {renderOrgs}
