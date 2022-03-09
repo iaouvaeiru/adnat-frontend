@@ -5,6 +5,7 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import OrganisationList from './components/OrganisationList'
 import NavBar from './components/NavBar'
+import NewOrganisation from './components/NewOrganisation'
 
 function App(props) {
 
@@ -67,6 +68,32 @@ function App(props) {
     }
   }
 
+  const addOrganisation = (newOrganisation) => {
+    let copyOfOrganisations = [...organisations, newOrganisation]
+    setOrganisations(copyOfOrganisations)
+    setState({...state, organisation: newOrganisation})
+  }
+
+  const joinOrganisation = (organisation) => {
+    setState({...state, organisation: organisation})
+  }
+
+  const leaveOrganisation = (organisation) => {
+    setState({...state, organisation:''})
+    //setShifts()
+  }
+
+  const updateOrganisation = (updatedOrganisation) => {
+    let copyOfOrganisations = organisations.map(orgObj => {
+      if(orgObj.id === updatedOrganisation.id){
+        return updatedOrganisation
+      } else {
+        return orgObj
+      }
+    })
+    setOrganisations(copyOfOrganisations)
+  }
+
   return (
     <div>
       <NavBar 
@@ -99,11 +126,26 @@ function App(props) {
             return <div>
               <OrganisationList
                 {...routerProps}
+                updateOrganisation={updateOrganisation}
+                leaveOrganisation={leaveOrganisation}
+                joinOrganisation={joinOrganisation}
                 state={state}
                 organisations={organisations}>
               </OrganisationList>
             </div>
           }}>
+        </Route>
+        <Route path={'/neworganisation'}
+          render={routerProps => {
+            return <div>
+              <NewOrganisation
+                {...routerProps}
+                addOrganisation={addOrganisation}
+                state={state}
+                organisations={organisations}>
+              </NewOrganisation>
+            </div>
+          }}> 
         </Route>
         <Route path={'/'}>
           <div>
