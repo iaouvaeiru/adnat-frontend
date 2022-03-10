@@ -80,10 +80,14 @@ function App(props) {
 
   const joinOrganisation = (organisation) => {
     setState({...state, organisation: organisation})
-    let copyOfShifts = shifts.filter(shiftObj => {
-      return shiftObj.user.id !== state.id
-    })
-    setShifts(copyOfShifts)
+    // let copyOfShifts = shifts.filter(shiftObj => {
+    //   if(shiftObj.user.id == state.id && shiftObj.user.organisation.id == state.organisation.id){
+    //     return shiftObj
+    //   } else {
+    //     return shiftObj.user.id !== state.id
+    //   }  
+    // })
+    // setShifts(copyOfShifts)
   }
 
   const leaveOrganisation = (organisation) => {

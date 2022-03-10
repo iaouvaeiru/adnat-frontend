@@ -74,7 +74,7 @@ export default function Organisation(props) {
         <div className="organisationCard">
             <div>{props.name}</div>
             <div>Hourly wage: ${props.hourly_rate}</div>
-            <button onClick={handleClick}>join</button>
+            {props.state.organisation ? null : <button onClick={handleClick}>join</button>}
             <button onClick={handleSetEditFormState}>edit</button>
             <div> </div>
             <hr></hr>
