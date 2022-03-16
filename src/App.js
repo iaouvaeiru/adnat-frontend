@@ -90,7 +90,7 @@ function App(props) {
     // setShifts(copyOfShifts)
   }
 
-  const leaveOrganisation = (organisation) => {
+  const leaveOrganisation = () => {
     setState({...state, organisation:''})
     let copyOfShifts = shifts.filter(shiftObj => {
       return shiftObj.user.id !== state.id

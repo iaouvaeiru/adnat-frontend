@@ -19,10 +19,6 @@ export default function NewOrganisation(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log({
-            name: formData.name,
-            hourly_rate: formData.hourly_rate
-        })
         fetch("http://localhost:3000/organisations", {
             method: "POST",
             headers: {
